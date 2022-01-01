@@ -8,7 +8,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  gridListRoot: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
@@ -31,7 +31,7 @@ const MoviePage = (props) => {
           <MovieHeader movie={movie} />
           <Grid container spacing={5} style={{ padding: "15px" }}>
             <Grid item xs={3}>
-              <div className={classes.root}>
+              <div className={classes.gridListRoot}>
                 <GridList
                   cellHeight={500}
                   className={classes.gridList}

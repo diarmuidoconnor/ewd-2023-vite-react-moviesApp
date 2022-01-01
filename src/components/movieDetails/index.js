@@ -4,8 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MonetizationIcon from "@material-ui/icons/MonetizationOn";
 import StarRate from "@material-ui/icons/StarRate";
-import NavigationIcon from "@material-ui/icons/Navigation";
-import Fab from "@material-ui/core/Fab";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -31,11 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   chipLabel: {
     margin: theme.spacing(0.5),
-  },
-  fab: {
-    position: "fixed",
-    top: theme.spacing(10),
-    right: theme.spacing(2),
   },
 }));
 
@@ -76,15 +69,6 @@ const MovieDetails = ( props) => {
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
       </div>
-
-      <Fab
-        color="secondary"
-        variant="extended"
-        className={classes.fab}
-      >
-        <NavigationIcon />
-        Reviews
-      </Fab>
       </>
   );
 };
