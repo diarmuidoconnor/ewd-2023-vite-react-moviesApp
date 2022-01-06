@@ -9,8 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../movieList";
 
 const useStyles = makeStyles((theme) =>  ({
+
   root: {
-    padding: "20px",
+    backgroundColor: "#bfbfbf",
+    paddingTop: theme.spacing(7),
+    // padding: "20px",
   },
   fab: {
     marginTop: theme.spacing(8),
