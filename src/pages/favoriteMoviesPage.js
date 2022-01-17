@@ -50,8 +50,6 @@ const FavouriteMoviesPage = () => {
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
   const displayMovies = allFavourites ? filterFunction(allFavourites) : [];
 
-  const toDo = () => true;
-
   const changeFilterValues = (type, value) => {
     const newf = { name: type, value: value };
     const newFilters =
