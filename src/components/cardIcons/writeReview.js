@@ -3,7 +3,6 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import { Link } from "react-router-dom";
 
 const WriteReviewIcon = ({ movie }) => {
-  console.log(movie.id)
   return (
     <Link
       to={{
