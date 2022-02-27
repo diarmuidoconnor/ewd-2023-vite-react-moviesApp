@@ -5,6 +5,7 @@ import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favoriteMoviesPage"; // NEW
 import MovieReviewPage from "./pages/movieReviewPage";
+import UpcomingMoviesPage from './pages/upcomingMoviesPage'
 import SiteHeader from "./components/siteHeader";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -35,6 +36,8 @@ const App = () => {
             path="/movies/favourites"
             component={FavouriteMoviesPage}
           />
+          <Route path="/movies/upcoming" component={UpcomingMoviesPage} />
+
           <Route path="/movies/:id" component={MoviePage} />
           <Route exact path="/" component={HomePage} />
           <Redirect from="*" to="/" />
