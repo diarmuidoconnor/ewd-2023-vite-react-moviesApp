@@ -4,12 +4,12 @@ import FilterCard from "../filterMoviesCard";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
 
-export const titleFilter = function (movie) {
-  return movie.title.toLowerCase().search(this.value.toLowerCase()) !== -1;
+export const titleFilter = function (movie, value) {
+  return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
-export const genreFilter = function (movie) {
-  const genreId = Number(this.value);
+export const genreFilter = function (movie, value) {
+  const genreId = Number(value);
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 

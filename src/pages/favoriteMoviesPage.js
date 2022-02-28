@@ -17,8 +17,8 @@ const titleFiltering = {
 export const genreFiltering = {
   name: "genre",
   value: "0",
-  condition: function (movie) {
-    const genreId = Number(this.value);
+  condition: function (movie, value) {
+    const genreId = Number(value);
     const genre_ids = movie.genres.map((g) => g.id);
     return genreId > 0 ? genre_ids.includes(genreId) : true;
   },
