@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import makeStyles from '@mui/styles/makeStyles';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -15,17 +14,15 @@ import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import { MoviesContext } from "../../contexts/moviesContext";
 
-const useStyles = makeStyles({
+const styles = {
   card: { maxWidth: 345 },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
-});
+};
 
 export default function MovieCard({ movie, action }) {
-  const classes = useStyles();
-  // const movie = props.movie;
   const { favourites } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === movie.id)) {
@@ -35,12 +32,12 @@ export default function MovieCard({ movie, action }) {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card sx={styles.card}>
       <CardHeader
-        className={classes.header}
+        sx={styles.header}
         avatar={
           movie.favourite ? (
-            <Avatar className={classes.avatar}>
+            <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
           ) : null
@@ -52,7 +49,7 @@ export default function MovieCard({ movie, action }) {
         }
       />
       <CardMedia
-        className={classes.media}
+        sx={styles.media}
         image={
           movie.poster_path
             ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`

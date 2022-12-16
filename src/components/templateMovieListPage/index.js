@@ -2,22 +2,12 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import makeStyles from '@mui/styles/makeStyles';
 import MovieList from "../movieList";
-
-const useStyles = makeStyles((theme) => ({
-  root: { 
-    backgroundColor: "#bfbfbf",
-    minHeight: "100vh",
-    paddingTop: theme.spacing(7),
-  }
-}));
  
 function MovieListPageTemplate({ movies, title, action }) {
-  const classes = useStyles();
   return (
-      <div className={classes.root}>
-        <Grid container >
+            <Grid container sx={{ padding: '20px' }}>
+
           <Grid item xs={12}>
             <Header title={title} />
           </Grid>
@@ -25,8 +15,6 @@ function MovieListPageTemplate({ movies, title, action }) {
             <MovieList action={action} movies={movies}/>
           </Grid>
         </Grid>
-
-      </div>
   );
 }
 export default MovieListPageTemplate;

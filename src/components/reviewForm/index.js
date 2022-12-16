@@ -3,14 +3,13 @@ import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import makeStyles from '@mui/styles/makeStyles';
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
 import MenuItem from "@mui/material/MenuItem";
 import Snackbar from "@mui/material/Snackbar"; 
 import MuiAlert from '@mui/material/Alert';
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const ratings = [
   {
@@ -35,9 +34,9 @@ const ratings = [
   },
 ];
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   root: {
-    marginTop: theme.spacing(2),
+    marginTop: 2,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -45,14 +44,14 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%",
     "& > * ": {
-      marginTop: theme.spacing(2),
+      marginTop: 2,
     },
   },
   textField: {
     width: "40ch",
   },
   submit: {
-    marginRight: theme.spacing(2),
+    marginRight: 2,
   },
   snack: {
     width: "50%",
@@ -60,19 +59,18 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
-}));
+};
 
 const ReviewForm = ({ movie }) => {
-  const classes = useStyles();
   const { register, handleSubmit, errors, reset } = useForm();
   const context = useContext(MoviesContext);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);  //NEW
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleSnackClose = (event) => {     // NEW
     setOpen(false);
-    history.push("/movies/favourites");
+    navigate("/movies/favourites");
   };
 
   const handleRatingChange = (event) => {
@@ -88,12 +86,12 @@ const ReviewForm = ({ movie }) => {
   };
 
   return (
-    <Box component="div" className={classes.root}>
+    <Box component="div" sx={styles.root}>
       <Typography component="h2" variant="h3">
         Write a review
       </Typography>
       <Snackbar
-        className={classes.snack}
+        sx={styles.snack}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
         onClose={handleSnackClose}
@@ -109,12 +107,12 @@ const ReviewForm = ({ movie }) => {
         </MuiAlert>
       </Snackbar>
       <form
-        className={classes.form}
+        sx={styles.form}
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
         <TextField
-          className={classes.textField}
+          sx={styles.textField}
           variant="outlined"
           margin="normal"
           required
@@ -166,12 +164,12 @@ const ReviewForm = ({ movie }) => {
           ))}
         </TextField>
 
-        <Box className={classes.buttons}>
+        <Box sx={styles.buttons}>
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.submit}
+            sx={styles.submit}
           >
             Submit
           </Button>
@@ -179,7 +177,7 @@ const ReviewForm = ({ movie }) => {
             type="reset"
             variant="contained"
             color="secondary"
-            className={classes.submit}
+            sx={styles.submit}
             onClick={() => {
               reset({
                 author: "",

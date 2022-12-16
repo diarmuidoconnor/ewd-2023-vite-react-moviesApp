@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import makeStyles from '@mui/styles/makeStyles';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,14 +10,13 @@ import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
-const useStyles = makeStyles({
+const styles = {
   table: {
     minWidth: 550,
   },
-});
+};
 
 export default function MovieReviews({ movie }) {
-  const classes = useStyles();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -30,7 +28,7 @@ export default function MovieReviews({ movie }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="reviews table">
+      <Table sx={styles.table} aria-label="reviews table">
         <TableHead>
           <TableRow>
             <TableCell>Author</TableCell>
@@ -46,15 +44,14 @@ export default function MovieReviews({ movie }) {
               </TableCell>
               <TableCell>{excerpt(r.content)}</TableCell>
               <TableCell>
-                <Link
-                  to={{
-                    pathname: `/reviews/${r.id}`,
-                    state: {
+              <Link
+                  to={`/reviews/${r.id}`}
+                  state={{
                       review: r,
                       movie: movie,
-                    },
                   }}
                 >
+    
                   Full Review
                 </Link>
               </TableCell>

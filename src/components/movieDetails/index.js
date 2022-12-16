@@ -5,45 +5,33 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import makeStyles from '@mui/styles/makeStyles';
-// New
+
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
 
-const useStyles = makeStyles((theme) => ({
-  chipRoot: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: theme.spacing(1.5),
-    margin: 0,
-  },
+const styles = {
   chipSet: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexWrap: "wrap",
     listStyle: "none",
-    padding: theme.spacing(1.5),
+    padding: 1.5,
     margin: 0,
   },
   chipLabel: {
-    margin: theme.spacing(0.5),
+    margin: 0.5,
   },
-  fab: {  //New
+  fab: {  
     position: "fixed",
-    top: theme.spacing(15),
-    right: theme.spacing(2),
+    top: 100,
+    right: 2,
   },
-}));
+};
 
 const MovieDetails = ( {movie}) => {
-  const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
   return (
@@ -55,18 +43,18 @@ const MovieDetails = ( {movie}) => {
       <Typography variant="h6" component="p">
         {movie.overview}
       </Typography>
-      <div className={classes.chipRoot}>
-      <Paper component="ul" className={classes.chipSet}>
+
+      <Paper component="ul" sx={styles.chipSet}>
         <li>
-          <Chip label="Genres" className={classes.chipLabel} color="primary" />
+          <Chip label="Genres" sx={styles.chipLabel} color="primary" />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
-            <Chip label={g.name} className={classes.chip} />
+            <Chip label={g.name} sx={styles.chip} />
           </li>
         ))}
       </Paper>
-      <Paper component="ul" className={classes.chipSet}>
+      <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
@@ -78,13 +66,11 @@ const MovieDetails = ( {movie}) => {
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
-      </div>
-      {/* New */}
       <Fab    
         color="secondary"
         variant="extended"
         onClick={() =>setDrawerOpen(true)}
-        className={classes.fab}
+        sx={styles.fab}
       >
         <NavigationIcon />
         Reviews

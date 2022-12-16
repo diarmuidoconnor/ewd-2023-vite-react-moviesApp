@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Fab from "@mui/material/Fab";
 import FilterCard from "../filterMoviesCard";
 import Drawer from "@mui/material/Drawer";
-import makeStyles from '@mui/styles/makeStyles';
 
 export const titleFilter = function (movie, value) {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
@@ -13,20 +12,19 @@ export const genreFilter = function (movie, value) {
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   root: {
     backgroundColor: "#bfbfbf",
   },
   fab: {
-    marginTop: theme.spacing(8),
+    marginTop: 8,
     position: "fixed",
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+    top: 2,
+    right: 2,
   },
-}));
+};
 
 const MovieFilterUI = ({ filterInputChange, titleFilter, genreFilter }) => {
-  const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -35,7 +33,7 @@ const MovieFilterUI = ({ filterInputChange, titleFilter, genreFilter }) => {
         color="secondary"
         variant="extended"
         onClick={() => setDrawerOpen(true)}
-        className={classes.fab}
+        sx={styles.fab}
       >
         Filter
       </Fab>
