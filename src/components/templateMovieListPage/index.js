@@ -1,8 +1,8 @@
 
 import React from "react";
 import Header from "../headerMovieList";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@mui/material/Grid";
+import makeStyles from '@mui/styles/makeStyles';
 import MovieList from "../movieList";
 
 const useStyles = makeStyles((theme) => ({

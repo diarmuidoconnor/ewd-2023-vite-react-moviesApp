@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import { useHistory } from "react-router-dom";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -29,7 +29,7 @@ const SiteHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   
   const menuOptions = [
     { label: "Home", path: "/" },
@@ -47,71 +47,69 @@ const SiteHeader = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  return ( 
-    <>
-      <AppBar className={classes.appbar}
-      position="fixed" elevation={0} color='primary'> 
-        <Toolbar>
-          <Typography variant="h4" className={classes.title}>
-            TMDB Client
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            All you ever wanted to know about Movies!
-          </Typography>
-          {isMobile ? (
-            <>
-              <IconButton
-                aria-label="menu"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-              >
-                {menuOptions.map((opt) => (
-                  <MenuItem
-                    key={opt.label}
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
-          ) : (
-            <>
+  return <>
+    <AppBar className={classes.appbar}
+    position="fixed" elevation={0} color='primary'> 
+      <Toolbar>
+        <Typography variant="h4" className={classes.title}>
+          TMDB Client
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          All you ever wanted to know about Movies!
+        </Typography>
+        {isMobile ? (
+          <>
+            <IconButton
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+              size="large">
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+            >
               {menuOptions.map((opt) => (
-                <Button
+                <MenuItem
                   key={opt.label}
-                  color="inherit"
                   onClick={() => handleMenuSelect(opt.path)}
                 >
                   {opt.label}
-                </Button>
+                </MenuItem>
               ))}
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-      {/* <div className={classes.offset} /> */}
-    </>
-  );
+            </Menu>
+          </>
+        ) : (
+          <>
+            {menuOptions.map((opt) => (
+              <Button
+                key={opt.label}
+                color="inherit"
+                onClick={() => handleMenuSelect(opt.path)}
+              >
+                {opt.label}
+              </Button>
+            ))}
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
+    {/* <div className={classes.offset} /> */}
+  </>;
 };
 
 export default SiteHeader;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Fab from "@material-ui/core/Fab";
+import Fab from "@mui/material/Fab";
 import FilterCard from "../filterMoviesCard";
-import Drawer from "@material-ui/core/Drawer";
-import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@mui/material/Drawer";
+import makeStyles from '@mui/styles/makeStyles';
 
 export const titleFilter = function (movie, value) {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;

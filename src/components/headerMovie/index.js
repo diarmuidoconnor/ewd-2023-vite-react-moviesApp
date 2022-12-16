@@ -1,11 +1,11 @@
 import React from "react";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import HomeIcon from "@material-ui/icons/Home";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import HomeIcon from "@mui/icons-material/Home";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const MovieHeader = ({ movie }) => {
 
   return (
     <Paper component="div" className={classes.root}>
-      <IconButton aria-label="go back" onClick={() => history.goBack()}>
+      <IconButton aria-label="go back" onClick={() => history.goBack()} size="large">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
       <Typography variant="h4" component="h3">
@@ -38,7 +38,7 @@ const MovieHeader = ({ movie }) => {
         <br />
         <span className={classes.tagLine}>{`   "${movie.tagline}"`} </span>
       </Typography>
-      <IconButton aria-label="go forward" onClick={() => history.goForward()}>
+      <IconButton aria-label="go forward" onClick={() => history.goForward()} size="large">
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
     </Paper>

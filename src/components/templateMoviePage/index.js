@@ -1,10 +1,10 @@
 
 import React from "react";
 import MovieHeader from "../headerMovie";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
+import Grid from "@mui/material/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
@@ -47,16 +47,16 @@ const TemplateMoviePage = ({ movie, children }) => {
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div className={classes.gridListRoot}>
-            <GridList cellHeight={500} className={classes.gridList} cols={1}>
+            <ImageList cellHeight={500} className={classes.gridList} cols={1}>
               {images.map((image) => (
-                <GridListTile key={image.file_path} className={classes.gridListTile} cols={1}>
+                <ImageListItem key={image.file_path} className={classes.gridListTile} cols={1}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
                     alt={image.poster_path}
                   />
-                </GridListTile>
+                </ImageListItem>
               ))}
-            </GridList>
+            </ImageList>
           </div>
         </Grid>
 
