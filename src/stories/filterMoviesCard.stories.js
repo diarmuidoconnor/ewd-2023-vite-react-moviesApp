@@ -1,8 +1,7 @@
-
 import React from "react";
 import FilterMoviesCard from "../components/filterMoviesCard";
-import { action } from "@storybook/addon-actions";
 import { MemoryRouter } from "react-router";
+import { action } from "@storybook/addon-actions";
 import { QueryClientProvider, QueryClient } from "react-query";
 
 const queryClient = new QueryClient({
@@ -14,6 +13,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 export default {
   title: "Home Page/FilterMoviesCard",
   component: FilterMoviesCard,
