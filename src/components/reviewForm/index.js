@@ -1,78 +1,39 @@
-
 import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
-import MenuItem from "@mui/material/MenuItem";
-import Snackbar from "@mui/material/Snackbar"; 
-import MuiAlert from '@mui/material/Alert';
-import { useNavigate } from 'react-router-dom'
-
-const ratings = [
-  {
-    value: 5,
-    label: "Excellent",
-  },
-  {
-    value: 4,
-    label: "Good",
-  },
-  {
-    value: 3,
-    label: "Average",
-  },
-  {
-    value: 2,
-    label: "Poor",
-  },
-  {
-    value: 0,
-    label: "Terrible",
-  },
-];
-
-const styles = {
-  root: {
-    marginTop: 2,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%",
-    "& > * ": {
-      marginTop: 2,
-    },
-  },
-  textField: {
-    width: "40ch",
-  },
-  submit: {
-    marginRight: 2,
-  },
-  snack: {
-    width: "50%",
-    "& > * ": {
-      width: "100%",
-    },
-  },
-};
+import { useNavigate } from "react-router-dom";
+import styles from "./styles";
+import ratings from "./ratingCategories";
+import Alert from "@mui/material/Alert";
+import Snackbar  from "@mui/material/Snackbar";
 
 const ReviewForm = ({ movie }) => {
-  const { register, handleSubmit, errors, reset } = useForm();
+  const defaultValues = {
+    author: "",
+    review: "",
+    agree: false,
+    rating: "3",
+  };
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm(defaultValues);
+  const navigate = useNavigate();
   const context = useContext(MoviesContext);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);  //NEW
-  const navigate = useNavigate()
 
-  const handleSnackClose = (event) => {     // NEW
+  const handleSnackClose = (event) => {
     setOpen(false);
     navigate("/movies/favourites");
   };
-
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
@@ -80,9 +41,9 @@ const ReviewForm = ({ movie }) => {
   const onSubmit = (review) => {
     review.movieId = movie.id;
     review.rating = rating;
-    // console.log(review)
-    context.addReview(movie, review); 
-    setOpen(true);    
+    // console.log(review);
+    context.addReview(movie, review);
+    setOpen(true); // NEW
   };
 
   return (
@@ -96,7 +57,7 @@ const ReviewForm = ({ movie }) => {
         open={open}
         onClose={handleSnackClose}
       >
-        <MuiAlert
+        <Alert
           severity="success"
           variant="filled"
           onClose={handleSnackClose}
@@ -104,65 +65,83 @@ const ReviewForm = ({ movie }) => {
           <Typography variant="h4">
             Thank you for submitting a review
           </Typography>
-        </MuiAlert>
+        </Alert>
       </Snackbar>
-      <form
-        sx={styles.form}
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <TextField
-          sx={styles.textField}
-          variant="outlined"
-          margin="normal"
-          required
-          id="author"
-          label="Author's name"
+      <form sx={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Controller
           name="author"
-          autoFocus
-          inputRef={register({ required: "Author name required" })}
+          control={control}
+          rules={{ required: "Name is required" }}
+          defaultValue=""
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              sx={{ width: "40ch" }}
+              variant="outlined"
+              margin="normal"
+              required
+              onChange={onChange}
+              value={value}
+              id="author"
+              label="Author's name"
+              autoFocus
+            />
+          )}
         />
         {errors.author && (
           <Typography variant="h6" component="p">
             {errors.author.message}
           </Typography>
         )}
-
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="content"
-          label="Review text"
-          id="content"
-          multiline
-          rows={10}
-          inputRef={register({
-            required: "No review text",
+        <Controller
+          name="review"
+          control={control}
+          rules={{
+            required: "Review cannot be empty.",
             minLength: { value: 10, message: "Review is too short" },
-          })}
+          }}
+          defaultValue=""
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              value={value}
+              onChange={onChange}
+              label="Review text"
+              id="review"
+              multiline
+              minRows={10}
+            />
+          )}
         />
-        {errors.content && (
+        {errors.review && (
           <Typography variant="h6" component="p">
-            {errors.content.message}
+            {errors.review.message}
           </Typography>
         )}
-        <TextField
-          id="select-rating"
-          select
-          variant="outlined"
-          label="Rating Select"
-          value={rating}
-          onChange={handleRatingChange}
-          helperText="Don't forget your rating"
-        >
-          {ratings.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+
+        <Controller
+          control={control}
+          name="rating"
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              id="select-rating"
+              select
+              variant="outlined"
+              label="Rating Select"
+              value={rating}
+              onChange={handleRatingChange}
+              helperText="Don't forget your rating"
+            >
+              {ratings.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        />
 
         <Box sx={styles.buttons}>
           <Button
