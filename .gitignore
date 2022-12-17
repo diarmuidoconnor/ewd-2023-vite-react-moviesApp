@@ -10,7 +10,7 @@
 /cypress/integration/2-a*
 
 # production
-/build
+/dist
 
 # misc
 .DS_Store
